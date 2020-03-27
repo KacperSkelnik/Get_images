@@ -1,0 +1,103 @@
+#!/bin/bash
+
+######################################################################
+### Kacper Skelnik, 291566, czwartek 12:15-14:45, tydzień parzysty ###
+######################################################################
+
+# initialization option
+options=$(getopt -o hfd -- "$@")
+[ $? -eq 0 ] || { 
+    echo "Incorrect parameter. Type -h to show help"
+    exit 0
+}
+
+# initialization webside variable
+website=$2
+
+# check if a option is correct once again, becouse it is common that URL started from h (https)
+if [ $1 == "-h" ]; then echo "Start work"
+elif [ $1 == "-f" ]; then echo "Start work"
+elif [ $1 == "-d" ]; then echo "Start work"
+else echo "Incorrect parameter. Type -h to show help"
+fi
+
+eval set -- "$options"
+while true; do
+    case "$1" in
+    -h)
+        echo ""
+        echo "Help:"
+        echo "To run script type"
+        echo "./get_images [OPTION] URL"
+        echo ""
+        echo "OPTIONS:"
+        echo "-h : to show help site"
+        echo "-f : to download full website, looking for images in temporary file, and coppy images to dictionary"
+        echo "-d : to download html file, find images URL, and download images to dictionary"
+        echo ""
+        break
+        ;;
+    -f) 
+        # check if a $website is not empty
+        if [ -z "$website" ]
+        then
+            echo "Error: you did not type URL"
+            echo "Type -h to show help"
+            echo "work stopped"
+            exit 0
+        fi
+
+        # get page
+        wget -p -k $website -P temporary_dir
+
+        # get images dir
+        find ./temporary_dir -type f -regex "^.*\.\(png\|jpg\|jpeg\|gif\)$" | sort -u -o image_dirs.txt
+
+        # create new dir for images
+        mkdir -p images
+
+        # cp images to new dir
+        cat image_dirs.txt | xargs cp -t ./images
+
+        # delete used file and dir
+        rm -r temporary_dir
+        rm image_dirs.txt
+        
+        break
+        ;;
+    -d)
+        # check if a $website is not empty
+        if [ -z "$website" ]
+        then
+            echo "Error: you did not give URL"
+            echo "Type -h to show help"
+            echo "work stopped"
+            exit 0
+        fi
+
+        # get page
+        curl "$website" -o "website.html"
+
+        # get all images src
+        cat website.html | grep img | grep -Po 'src="\K.*?(?=")' | sed 's/\?.*//' > urls.txt
+
+        # create new dir for images
+        mkdir -p images
+
+        # download images
+        sort -u urls.txt | wget -P ./images -i-
+
+        # delete used file
+        rm urls.txt
+        rm website.html
+
+        break
+        ;;
+    *)
+        exit 0
+        ;;
+    esac
+done
+
+echo "Work done"
+exit 0
