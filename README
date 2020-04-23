@@ -1,0 +1,33 @@
+######################
+### Kacper Skelnik ###
+######################
+
+
+1. Informację ogólne:
+Program pobiera obrazki ze strony internetowej do folderu nazwanego na podstawie linku. Oznacza to, że obrazki pobrane ze strony www.obrazki.pl będą zapisane do folderu o nazwie www_obrazki_pl. Program pobiera tylko te obrazki których nie ma aktualnie w folderze o takiej nazwie. Program działa na zasadzie skanowania pliku html w poszukiwaniu komendy zaczynającej się od src=" do ". Pomiędzy tymi wyrażeniami znajduję się link do obrazka, który jest zapisywany do tymczasowego pliku, by następnie mógł zostać pobrany. Po wykonaniu pracy program usuwa wszystkie niepotrzebne więcej pliki.
+
+
+2. Uruchamianie programu:
+Aby uruchomić program należy znajdować się w folderze zawierającym kod skryptu. Po czym wpisać w konsoli:
+
+./get_images [OPCJA (opcjonalnie)] adres_obrazka
+
+OPCJĘ:
+--help : wyświetla pomoc
+-u : wyświetla wszystkie linki do obrazków ze strony internetowej
+-n : wyświetla linki do obrazków ze strony internetowej, których nie ma aktualnie w folderze odpowiadającym danej stronie
+
+W przypadku uruchomiania programu bez opcji otrzymamy podstawową funkcjonalność.
+
+3. Zabezpieczenia:
+Program zawiera szereg zabezpieczeń:
+-sprawdza czy użytkownik wprowadził działający link (poprzez sprawdzenie odpowiedzi ze strony)
+-sprawdza czy użytkownik w ogóle coś podał
+-zapisuję obrazki z różnych stron w różnych folderach
+-przy ponownym uruchomieniu program pobiera tylko te obrazki, których nie ma aktualnie w folderze (w przypadku aktualizacji strony). Folder zostaje bez zmian
+-sprawdza czy użytkownik wprowadził link strony
+-sprawdza czy podane opcję są dozwolone
+-w przypadku wyboru opcji -n program sprawdza czy folder nie jest pusty
+-w przypadku błędu użytkownika automatycznie wyświetla się komunikat z pomocą
+
+Program napisany na linuxie Ubuntu 19.10, bash wersja 5.0.3(1)
