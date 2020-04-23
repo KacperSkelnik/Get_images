@@ -1,0 +1,33 @@
+######################
+### Kacper Skelnik ###
+######################
+
+1. Informację ogólne:
+Plik programu zawiera 2 pomniejsze skrypty Bash (w strukturze case), które zwracają folder z obrazkami ze strony WWW, ale podchodzą do tematu na dwa różne sposoby. W zależności od wybranej opcji:
+
+-f pobiera całą stronę internetową i w pobranych plikach szuka obrazków, aby skopiować je do oddzielnego folderu i na końcu usunąć niepotrzebne pliki strony
+-d pobiera plik HTML podanej strony, szuka w nim adresy obrazków, zapisuje je do pliku tymczasowego, pobiera obrazki do oddzielnego folderu i usuwa niepotrzebne pliki
+
+2. Zalety i wady poszczególnych rozwiązań:
+zalety:
+-f : zwraca wszystkie obrazki, włącznie z ikonami
+-d : ściąga mniej niepotrzebnych plików
+
+wady:
+-f : ściąga całą stronę
+-d : pobiera tylko obrazki które są zdefiniowane w pliku HTML jako "<img src=....>"
+
+W zależności od budowy strony, różne opcje dają lepsze rezultaty.
+
+3. Instrukcja uruchamiania programu:
+- uruchomić terminal
+- w lokalizacji skryptu napisać: ./get_images [OPTION] URL_strony
+
+[OPTION]:
+-f : opisane wyżej
+-d : opisane wyżej
+-h : otwiera strone help
+
+4. Opis działania:
+W pliku zawierającym kod skryptu, zostały umieszczone komentarze nad liniami kodu, z wyjaśnieniem działania każdego kroku. Komentarze zostały napisane w jązyku 
+angielskim, aby zapewnić uniwersalność w zrozumieniu kodu.
