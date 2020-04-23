@@ -2,32 +2,32 @@
 ### Kacper Skelnik ###
 ######################
 
-
 1. Informację ogólne:
-Program pobiera obrazki ze strony internetowej do folderu nazwanego na podstawie linku. Oznacza to, że obrazki pobrane ze strony www.obrazki.pl będą zapisane do folderu o nazwie www_obrazki_pl. Program pobiera tylko te obrazki których nie ma aktualnie w folderze o takiej nazwie. Program działa na zasadzie skanowania pliku html w poszukiwaniu komendy zaczynającej się od src=" do ". Pomiędzy tymi wyrażeniami znajduję się link do obrazka, który jest zapisywany do tymczasowego pliku, by następnie mógł zostać pobrany. Po wykonaniu pracy program usuwa wszystkie niepotrzebne więcej pliki.
+Plik programu zawiera 2 pomniejsze skrypty Bash (w strukturze case), które zwracają folder z obrazkami ze strony WWW, ale podchodzą do tematu na dwa różne sposoby. W zależności od wybranej opcji:
 
+-f pobiera całą stronę internetową i w pobranych plikach szuka obrazków, aby skopiować je do oddzielnego folderu i na końcu usunąć niepotrzebne pliki strony
+-d pobiera plik HTML podanej strony, szuka w nim adresy obrazków, zapisuje je do pliku tymczasowego, pobiera obrazki do oddzielnego folderu i usuwa niepotrzebne pliki
 
-2. Uruchamianie programu:
-Aby uruchomić program należy znajdować się w folderze zawierającym kod skryptu. Po czym wpisać w konsoli:
+2. Zalety i wady poszczególnych rozwiązań:
+zalety:
+-f : zwraca wszystkie obrazki, włącznie z ikonami
+-d : ściąga mniej niepotrzebnych plików
 
-./get_images [OPCJA (opcjonalnie)] adres_obrazka
+wady:
+-f : ściąga całą stronę
+-d : pobiera tylko obrazki które są zdefiniowane w pliku HTML jako "<img src=....>"
 
-OPCJĘ:
---help : wyświetla pomoc
--u : wyświetla wszystkie linki do obrazków ze strony internetowej
--n : wyświetla linki do obrazków ze strony internetowej, których nie ma aktualnie w folderze odpowiadającym danej stronie
+W zależności od budowy strony, różne opcje dają lepsze rezultaty.
 
-W przypadku uruchomiania programu bez opcji otrzymamy podstawową funkcjonalność.
+3. Instrukcja uruchamiania programu:
+- uruchomić terminal
+- w lokalizacji skryptu napisać: ./get_images [OPTION] URL_strony
 
-3. Zabezpieczenia:
-Program zawiera szereg zabezpieczeń:
--sprawdza czy użytkownik wprowadził działający link (poprzez sprawdzenie odpowiedzi ze strony)
--sprawdza czy użytkownik w ogóle coś podał
--zapisuję obrazki z różnych stron w różnych folderach
--przy ponownym uruchomieniu program pobiera tylko te obrazki, których nie ma aktualnie w folderze (w przypadku aktualizacji strony). Folder zostaje bez zmian
--sprawdza czy użytkownik wprowadził link strony
--sprawdza czy podane opcję są dozwolone
--w przypadku wyboru opcji -n program sprawdza czy folder nie jest pusty
--w przypadku błędu użytkownika automatycznie wyświetla się komunikat z pomocą
+[OPTION]:
+-f : opisane wyżej
+-d : opisane wyżej
+-h : otwiera strone help
 
-Program napisany na linuxie Ubuntu 19.10, bash wersja 5.0.3(1)
+4. Opis działania:
+W pliku zawierającym kod skryptu, zostały umieszczone komentarze nad liniami kodu, z wyjaśnieniem działania każdego kroku. Komentarze zostały napisane w jązyku 
+angielskim, aby zapewnić uniwersalność w zrozumieniu kodu.
